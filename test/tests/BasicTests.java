@@ -46,4 +46,22 @@ public class BasicTests {
         assertEquals("2 years, 1 day, 1 minute and 2 seconds", durationformat.DurationFormat.durationFormat(63158462));
         assertEquals("1 year, 1 minute and 2 seconds", durationformat.DurationFormat.durationFormat(31536062));
     }
+    
+    @Test
+    public void exampleTests2() {
+        assertEquals("now", durationformat.DurationFormat.durationFormat2(0));
+        assertEquals("1 second", durationformat.DurationFormat.durationFormat2(1));
+        assertEquals("1 minute", durationformat.DurationFormat.durationFormat2(60));
+        assertEquals("1 minute and 2 seconds", durationformat.DurationFormat.durationFormat2(62));
+        assertEquals("2 minutes", durationformat.DurationFormat.durationFormat2(120));
+        assertEquals("1 hour", durationformat.DurationFormat.durationFormat2(3600));
+        assertEquals("1 hour, 1 minute and 2 seconds", durationformat.DurationFormat.durationFormat2(3662));
+        assertEquals("1 day and 1 second", durationformat.DurationFormat.durationFormat2(86401));
+        assertEquals("1 day and 1 minute", durationformat.DurationFormat.durationFormat2(86460));
+        assertEquals("1 day, 1 minute and 1 second", durationformat.DurationFormat.durationFormat2(86461));
+        assertEquals("14 days, 3 hours, 28 minutes and 43 seconds", durationformat.DurationFormat.durationFormat2(1222123));
+        assertEquals("2 years, 1 day and 1 minute", durationformat.DurationFormat.durationFormat2(63158460));
+        assertEquals("2 years, 1 day, 1 minute and 2 seconds", durationformat.DurationFormat.durationFormat2(63158462));
+        assertEquals("1 year, 1 minute and 2 seconds", durationformat.DurationFormat.durationFormat2(31536062));
+    }
 }

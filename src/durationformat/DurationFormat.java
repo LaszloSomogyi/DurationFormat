@@ -1,4 +1,3 @@
-
 package durationformat;
 
 import java.util.Stack;
@@ -7,6 +6,64 @@ public class DurationFormat {
 
     public static void main(String[] args) {
 
+    }
+
+    public static Stack getTimeUnits(int seconds) {
+        int timeVol = seconds;
+        int[] metric = {60, 60, 24, 365};
+        //Verembe töltöm az értékeket
+        Stack<Integer> stack = new Stack<>();
+        int nonZeroItems = 0;
+        int timeUnit = 0;
+        for (int i = 0; i < 4; i++) {
+            timeUnit = timeVol % metric[i];
+            stack.push(timeUnit);
+            //megszámlálom, hogy hány db. nem nulla értékű elem kerül a verembe
+            if (timeUnit != 0) {
+                nonZeroItems++;
+            }
+            timeVol /= metric[i];
+        }
+        //hozzáadom az éveket is
+        if (timeVol != 0) {
+            nonZeroItems++;
+        }
+        stack.push(timeVol);
+        stack.push(nonZeroItems);
+        return stack;
+    }
+
+    public static String printTime(Stack<Integer> stack) {
+        int nonZeroItems = stack.pop();
+        String[] measures = {"year", "day", "hour", "minute", "second"};
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < measures.length; i++) {
+            int stackItem = stack.pop();
+            if (stackItem != 0) {
+                sb.append(stackItem).append(" ").append(measures[i]);
+                if (stackItem > 1) {
+                    sb.append("s");
+                }
+                if (nonZeroItems > 2) {
+                    sb.append(", ");
+                }
+                if (nonZeroItems == 2) {
+                    sb.append(" and ");
+                }
+                nonZeroItems--;
+            }
+        }
+        return sb.toString();
+    }
+
+    public static String durationFormat2(int seconds) {
+        if (seconds < 0) {
+            throw new IllegalArgumentException("Argument cannot be less than zero.");
+        }
+        if (seconds == 0) {
+            return "now";
+        }
+        return printTime(getTimeUnits(seconds));
     }
 
     public static String durationFormat(int seconds) {
